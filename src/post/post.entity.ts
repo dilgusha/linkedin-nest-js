@@ -7,9 +7,6 @@ export class PostEntity extends CommonEntity {
   title: string;
 
   @Column()
-  description: string;
-
-  @Column()
   content: string;
 
   @Column()

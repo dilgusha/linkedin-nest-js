@@ -1,12 +1,8 @@
-import { IsString, MaxLength } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class CreatePostDto {
   @IsString()
   title: string;
-
-  @IsString()
-  @MaxLength(100)
-  description: string;
 
   @IsString()
   content: string;
