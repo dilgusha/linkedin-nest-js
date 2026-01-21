@@ -7,4 +7,7 @@ export class CreatePostDto {
   @IsString()
   @MaxLength(100)
   description: string;
+
+  @IsString()
+  content: string;
 }
