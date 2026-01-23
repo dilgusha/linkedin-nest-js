@@ -1,5 +1,5 @@
 import { IsEmail, IsOptional, IsString, MinLength } from "class-validator";
-import { CreateUserDto } from "src/user/dtos/user.dto";
+import { CreateUserDto } from "src/user/dtos/createUser.dto";
 
 export class RegisterUserDto extends CreateUserDto { }
 

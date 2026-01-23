@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { CommonEntity } from "./common.entity";
 import { Gender, Role } from "../enam";
 
@@ -36,4 +36,19 @@ export class User extends CommonEntity {
 
     @Column({ type: "boolean", default: false })
     isVisibility: boolean
+
+    @AfterInsert()
+    logInsert() {
+        console.log('User inserted')
+    }
+
+    @AfterRemove()
+    logRemove() {
+        console.log('User removed')
+    }
+
+    @AfterUpdate()
+    logUpdate() {
+        console.log('User updated')
+    }
 }
