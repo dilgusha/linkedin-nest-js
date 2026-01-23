@@ -1,15 +1,59 @@
-import { IsEmail, IsOptional, IsString, MaxLength, Min, MinLength } from "class-validator";
+import {
+  IsString,
+  IsEmail,
+  IsEnum,
+  IsOptional,
+  IsBoolean,
+  IsDateString,
+  IsPhoneNumber,
+  MinLength,
+  MaxLength,
+} from "class-validator";
+import { EGenderType, ERoleType } from "src/common/enum";
 
-export class CreateUserDto{
-    @IsString()
-    @MinLength(3)
-    name: string;
+export class CreateUserDto {
+  @IsString()
+  @MaxLength(150)
+  name: string;
 
-    @IsEmail()
-    email: string;
+  @IsString()
+  @MaxLength(150)
+  surname: string;
 
-    @IsString()
-    @MinLength(8)
-    @MaxLength(20)
-    password: string;
+  @IsOptional()
+  @IsEnum(EGenderType)
+  gender?: EGenderType;
+
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @MinLength(6)
+  password: string;
+
+  @IsEnum(ERoleType)
+  role: ERoleType;
+
+  @IsOptional()
+  @IsString()
+  about?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(150)
+  companyName?: string;
+
+  @IsOptional()
+  @IsDateString()
+  birthdate?: Date;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(13)
+  phone?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isVisibility?: boolean;
 }
+ 

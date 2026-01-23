@@ -45,11 +45,4 @@ export class UserEntity extends CommonEntity {
 
   @Column({ type: "boolean", default: false })
   isVisibility: boolean;
-
-  @Column({ type: "varchar", default: null })
-  passToken: String;
-
-  @Column({ type: "datetime", default: null })
-  resetExpiredIn: Date;
-
 }
