@@ -39,7 +39,7 @@ export class UserService {
         return user;
     }
 
-    async update(id: number, dto: UpdateUserDto) {
+    async update(id: number, dto: Partial<CreateUserType>) {
         const user = await this.findOne(id)
         if (!user) throw new NotFoundException('User not found');
         // await this.userRepo.update(id, dto);
