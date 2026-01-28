@@ -4,6 +4,7 @@ import {
   IsEnum,
   IsOptional,
   IsString,
+  Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -24,8 +25,7 @@ export class CreateUserDto {
   password: string;
 
   @IsString()
-  @MinLength(10)
-  @MaxLength(10)
+  @Matches(/^\+?[1-9][0-9]{7,14}$/)
   phone: string;
 
   @IsOptional()

@@ -7,8 +7,10 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserDto } from './dto/user.dto';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -31,6 +33,7 @@ export class UserController {
   }
 
   @Post()
+  @Serialize(UserDto)
   async create(@Body() dto: CreateUserDto) {
     return this.userService.create(dto);
   }

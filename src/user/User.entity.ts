@@ -28,7 +28,7 @@ export class UserEntity extends CommonEntity {
   @Column({ nullable: true })
   companyName?: string;
 
-  @Column()
+  @Column({ nullable: true })
   birthday: Date;
 
   @Column({ default: false })
