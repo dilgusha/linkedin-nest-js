@@ -2,8 +2,11 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestj
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dtos/createUser.dto";
 import { UpdateUserDto } from "./dtos/updateUser.dto";
+import { Serialize } from "src/interceptor/serialize.interceptor";
+import { UserDto } from "./dtos/user.dto";
 
 @Controller('users')
+@Serialize(UserDto)
 export class UserController {
     constructor(public userService: UserService) { }
 
@@ -14,7 +17,7 @@ export class UserController {
 
     @Post('/signup')
     async createUser(@Body() body: CreateUserDto) {
-        return this.userService.create(body.email, body.password)
+        return this.userService.create(body)
     }
 
     @Get('/:id')

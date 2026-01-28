@@ -1,6 +1,6 @@
 import { IsDateString, IsEmail, IsEnum, IsOptional, IsString, MaxLength, MinLength } from 'class-validator'
 import { Gender } from 'src/common/enam';
-IsDateString
+
 export class CreateUserDto {
     @IsEmail()
     email: string;

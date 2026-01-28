@@ -4,6 +4,7 @@ import { User } from "src/common/entities/user.entity";
 import { Repository } from "typeorm";
 import { CreateUserDto } from "./dtos/createUser.dto";
 import { Role } from "src/common/enam";
+import { UpdateUserDto } from "./dtos/updateUser.dto";
 
 @Injectable()
 export class UserService {
@@ -19,8 +20,10 @@ export class UserService {
         return this.repo.save(user)
     }
 
-    findOne(id: number) {
-        return this.repo.findOneBy({ id })
+    async findOne(id: number) {
+        const user = await this.repo.findOneBy({ id })
+        if (!user) throw new NotFoundException('User by this id not found')
+        return user
     }
 
     async findOrFail(id: number) {
@@ -33,15 +36,19 @@ export class UserService {
         return this.repo.find({ where: { email } })
     }
 
-    async update(id: number, attrs: Partial<User>) {
+    async update(id: number, attrs: UpdateUserDto) {
         const user = await this.findOrFail(id)
-        Object.assign(user, attrs)
-        return user
+        for (const key in attrs) {
+            const value = attrs[key]
+            if (value !== undefined && value !== null) user[key] = value
+        }
+        return this.repo.save(user)
     }
 
     async remove(id: number) {
         const user = await this.findOrFail(id)
+        await this.repo.remove(user)
         return user
     }
-
 }
+
