@@ -11,9 +11,6 @@ export class UserDto {
   @Expose({ name: 'name' })
   name: string;
 
-  @Expose({ name: 'surname' })
-  surname: string;
-
   @Expose({ name: 'about' })
   about: string;
 
