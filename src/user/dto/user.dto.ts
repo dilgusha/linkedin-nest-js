@@ -26,6 +26,12 @@ export class UserDto {
   @Expose({ name: 'phone' })
   phone: string;
 
+  @Expose({ name: 'companyName' })
+  companyName: string;
+
+  @Expose({ name: 'birthday' })
+  birthday: Date;
+
   @Expose({ name: 'isPrivate' })
   isPrivate: boolean;
 }
