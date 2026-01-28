@@ -13,23 +13,23 @@ export class UserEntity extends CommonEntity {
   @Column()
   password: string;
 
+  @Column({ unique: true })
+  phone: string;
+
   @Column({ type: 'varchar', enum: GenderEnum, nullable: true })
-  gender: GenderEnum;
+  gender?: GenderEnum;
 
   @Column({ type: 'varchar', enum: RoleEnum, default: RoleEnum.USER })
   role: RoleEnum;
 
-  @Column()
-  about: string;
+  @Column({ nullable: true })
+  about?: string;
 
-  @Column()
-  companyName: string;
+  @Column({ nullable: true })
+  companyName?: string;
 
   @Column()
   birthday: Date;
-
-  @Column({ unique: true })
-  phone: string;
 
   @Column({ default: false })
   isPrivate: boolean;
