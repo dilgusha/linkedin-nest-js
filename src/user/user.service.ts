@@ -12,10 +12,11 @@ export class UserService {
     constructor(@InjectRepository(UserEntity)
     private readonly userRepo: Repository<UserEntity>) { }
 
-    create(params: CreateUserType) {
+    create(params: CreateUserDto) {
         const user = this.userRepo.create(params)
         return this.userRepo.save(user);
     }
+
 
     async findOne(id: number) {
         const user = await this.userRepo.findOneBy({ id });

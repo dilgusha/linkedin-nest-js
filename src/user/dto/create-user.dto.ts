@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
   IsEmail,
@@ -12,18 +13,22 @@ import {
 import { EGenderType, ERoleType } from "src/common/enum";
 
 export class CreateUserDto {
+  @ApiProperty()
   @IsString()
   @MaxLength(150)
   name: string;
 
+  @ApiProperty()
   @IsString()
   @MaxLength(150)
   surname: string;
 
+  @ApiProperty()
   @IsOptional()
   @IsEnum(EGenderType)
   gender?: EGenderType;
 
+  @ApiProperty()  
   @IsEmail()
   email: string;
 

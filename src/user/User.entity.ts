@@ -1,6 +1,7 @@
 import { EGenderType, ERoleType } from "src/common/enum";
 import { Column, Entity, Unique } from "typeorm";
 import { CommonEntity } from "../common/Common.entity";
+import { Exclude } from "class-transformer";
 
 @Entity({ name: "users" })
 @Unique(["phone"]) 
@@ -21,6 +22,7 @@ export class UserEntity extends CommonEntity {
   @Column({ type: "varchar", length: 150 })
   email: string;
 
+  @Exclude()
   @Column({ type: "varchar", length: 150 })
   password: string;
 
