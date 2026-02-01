@@ -1,29 +1,16 @@
-
-GET http://localhost:3014/users
-
-### Create User // Tested
-POST http://localhost:3014/users/signup
-Content-Type: application/json
-
-{
-    "name":"Mehdi",
-    "email":"mehdi@gmail.com",
-    "password":"cde123456"
-}
-
-### Get all users // Tested
+### Get all users
 GET http://localhost:3014/users
 
 ### Get User with an ID
-GET http://localhost:3014/users/1
+GET http://localhost:3014/users/5
 
 ### Remove User with an ID
-DELETE http://localhost:3014/users/2
+DELETE http://localhost:3014/users/5
 
-### Update User with an ID // Tested
-PATCH http://localhost:3014/users/2
+### Update User with an ID
+PATCH http://localhost:3014/users/6
 Content-Type: application/json
 
 {
-    "phone": "+994 51 399 78 11"
+    "name": "Agasalim"
 }

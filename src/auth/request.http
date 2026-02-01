@@ -1,0 +1,21 @@
+### Get all users // Tested
+GET http://localhost:3014/users
+
+### Create User // Tested
+POST http://localhost:3014/auth/signup
+Content-Type: application/json
+
+{
+    "email":"aga@gmail.com",
+    "password":"abs123456",
+    "gender": "MALE"
+}
+
+### Login User
+POST http://localhost:3014/auth/login
+Content-Type: application/json
+
+{
+    "email": "aga@gmail.com",
+    "password": "abs123456"
+}

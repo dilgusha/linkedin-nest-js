@@ -2,14 +2,13 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "src/common/entities/user.entity";
 import { Repository } from "typeorm";
-import { CreateUserDto } from "./dtos/createUser.dto";
 import { Role } from "src/common/enam";
 import { UpdateUserDto } from "./dtos/updateUser.dto";
+import { CreateUserDto } from "./dtos/createUser.dto";
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(User) private repo: Repository<User>) {
-    }
+    constructor(@InjectRepository(User) private repo: Repository<User>) { }
 
     create(data: CreateUserDto) {
         const user = this.repo.create({
@@ -32,9 +31,32 @@ export class UserService {
         return user
     }
 
-    find(email: string) {
-        return this.repo.find({ where: { email } })
+    async findByEmail(email: string) {
+        return this.repo.findOne({
+            where: { email },
+            select: ['id', 'email', 'username', 'password', 'name', 'surname', 'gender', 'role', 'about', 'companyname', 'birthday', 'phone', 'isVisibility']
+        })
     }
+    // async findByEmail(email: string) {
+    //     return this.repo.createQueryBuilder('user')
+    //         .where('user.email = :email', { email })
+    //         .addSelect('user.password')
+    //         .getOne()
+    // }
+
+    async findByUsername(username: string) {
+        return this.repo.findOne({
+            where: { username },
+            select: ['id', 'email', 'username', 'password', 'name', 'surname', 'gender', 'role', 'about', 'companyname', 'birthday', 'phone', 'isVisibility']
+        })
+    }
+
+    // async findByUsername(username: string) {
+    //     return this.repo.createQueryBuilder('user')
+    //         .where('user.username = :username', { username })
+    //         .addSelect('user.password')
+    //         .getOne()
+    // }
 
     async update(id: number, attrs: UpdateUserDto) {
         const user = await this.findOrFail(id)

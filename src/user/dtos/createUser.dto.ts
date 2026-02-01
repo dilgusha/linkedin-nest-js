@@ -1,4 +1,4 @@
-import { IsDateString, IsEmail, IsEnum, IsOptional, IsString, MaxLength, MinLength } from 'class-validator'
+import { IsDateString, IsEmail, IsEnum, IsOptional, IsString, MinLength } from 'class-validator'
 import { Gender } from 'src/common/enam';
 
 export class CreateUserDto {
@@ -18,6 +18,9 @@ export class CreateUserDto {
     surname?: string;
 
     @IsOptional()
+    @IsString()
+    username: string
+
     @IsEnum(Gender)
     gender?: Gender;
 

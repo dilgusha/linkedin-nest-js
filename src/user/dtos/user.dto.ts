@@ -14,10 +14,13 @@ export class UserDto {
     surname: string;
 
     @Expose()
-    about: string;
+    username: string
 
     @Expose()
-    companyname: string;
+    gender: string;
+
+    @Expose()
+    birthday: Date;
 
     @Expose()
     phone: string;

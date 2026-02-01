@@ -5,6 +5,9 @@ import { Gender, Role } from "../enam";
 @Entity()
 export class User extends CommonEntity {
     @Column({ type: "varchar", length: 150, default: null })
+    username: string
+
+    @Column({ type: "varchar", length: 150, default: null })
     name: string
 
     @Column({ type: "varchar", length: 150, default: null })
