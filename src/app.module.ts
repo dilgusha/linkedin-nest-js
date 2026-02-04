@@ -8,15 +8,21 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import config from './config';
 import { UserEntity } from './user/User.entity';
 import { EducationEntity } from './education/education.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [UserModule, AuthModule, PostModule,AuthModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'database.sqlite', 
-      entities: [UserEntity ],
+      entities: [UserEntity],
       synchronize: true,
       // logging: true,
+    }),
+    JwtModule.register({
+      global: true,
+      secret: 'secretKey',
+      signOptions: { expiresIn: '7d' },
     }),
   ],
   controllers: [AppController],

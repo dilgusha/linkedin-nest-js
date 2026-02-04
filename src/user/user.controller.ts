@@ -6,9 +6,10 @@ import { log } from "console";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { Serialize, SerializeInterceptor } from "src/interceptors/serialize.interceptos";
 import { UserDto } from "./dto/user.dto";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "src/guards/auth.guard";
 
+@ApiBearerAuth()
 @Controller('user')
 @ApiTags('user')
 export class UserController {

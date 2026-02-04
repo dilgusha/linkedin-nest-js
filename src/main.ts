@@ -18,6 +18,7 @@ async function bootstrap() {
     .setDescription('The linkedin API description')
     .setVersion('1.0')
     .addTag('linkedin')
+    .addBearerAuth()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, documentFactory);
