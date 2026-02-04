@@ -19,7 +19,7 @@ export class UserEntity extends CommonEntity {
   })
   gender: EGenderType;
 
-  @Column({ type: "varchar", length: 150 })
+  @Column({ type: "varchar", length: 150, unique:true})
   email: string;
 
   @Exclude()

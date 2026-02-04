@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseInterceptors } from "@nestjs/common";
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Req, UseGuards, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { UserEntity } from "src/user/User.entity";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -7,6 +7,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { Serialize, SerializeInterceptor } from "src/interceptors/serialize.interceptos";
 import { UserDto } from "./dto/user.dto";
 import { ApiTags } from "@nestjs/swagger";
+import { AuthGuard } from "src/guards/auth.guard";
 
 @Controller('user')
 @ApiTags('user')
@@ -29,7 +30,7 @@ export class UserController {
         return this.userService.findByEmail(email);
     }
 
-// 
+
     @Serialize(UserDto)
     @Post()
     async create(@Body() dto: CreateUserDto) {
@@ -42,9 +43,11 @@ export class UserController {
         return this.userService.delete(parseInt(id));
     }
 
-    @Patch(':id')
-    async update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
-        return this.userService.update(parseInt(id), dto);
+
+    @UseGuards(AuthGuard)
+    @Patch('/update')
+    async update( @Body() dto: UpdateUserDto, @Req() req:any) {
+        return this.userService.update(parseInt(req.user.id), dto);
     }
 
 }

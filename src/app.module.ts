@@ -7,9 +7,10 @@ import { PostModule } from './post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import config from './config';
 import { UserEntity } from './user/User.entity';
+import { EducationEntity } from './education/education.entity';
 
 @Module({
-  imports: [UserModule, AuthModule, PostModule,
+  imports: [UserModule, AuthModule, PostModule,AuthModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'database.sqlite', 

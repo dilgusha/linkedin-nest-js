@@ -6,14 +6,15 @@ import { FindOneParams, FindParams } from "src/common/types/find.params";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { CreateUserType } from "./user.types";
+import { ERoleType } from "src/common/enum";
 
 @Injectable()
 export class UserService {
     constructor(@InjectRepository(UserEntity)
     private readonly userRepo: Repository<UserEntity>) { }
 
-    create(params: CreateUserDto) {
-        const user = this.userRepo.create(params)
+    create(params: CreateUserType) {
+        const user = this.userRepo.create({...params, role:ERoleType.USER})
         return this.userRepo.save(user);
     }
 
@@ -37,7 +38,7 @@ export class UserService {
         const user = await this.findOne(id);
         if (!user) throw new NotFoundException('User not found');
         await this.userRepo.remove(user);
-        return user;
+        return 'User deleted successfully';
     }
 
     async update(id: number, dto: Partial<CreateUserType>) {

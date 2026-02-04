@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Exclude } from "class-transformer";
 import {
   IsString,
   IsEmail,
@@ -13,7 +14,7 @@ import {
 import { EGenderType, ERoleType } from "src/common/enum";
 
 export class CreateUserDto {
-  @ApiProperty()
+  @ApiProperty({example:'Dilgusha'})
   @IsString()
   @MaxLength(150)
   name: string;
@@ -23,40 +24,44 @@ export class CreateUserDto {
   @MaxLength(150)
   surname: string;
 
-  @ApiProperty()
+  @ApiProperty({enumName: 'EGenderType', enum: EGenderType})
   @IsOptional()
   @IsEnum(EGenderType)
   gender?: EGenderType;
 
-  @ApiProperty()  
+  @ApiProperty({example:'email@gmail.com'})  
   @IsEmail()
   email: string;
 
+  @ApiProperty({example:'password'})
   @IsString()
   @MinLength(6)
   password: string;
 
-  @IsEnum(ERoleType)
-  role: ERoleType;
 
+  @ApiProperty()
   @IsOptional()
   @IsString()
   about?: string;
 
+  @ApiProperty()
   @IsOptional()
   @IsString()
   @MaxLength(150)
   companyName?: string;
 
+  @ApiProperty()
   @IsOptional()
   @IsDateString()
   birthdate?: Date;
 
+  @ApiProperty()
   @IsOptional()
   @IsString()
   @MaxLength(13)
   phone?: string;
 
+  @ApiProperty()
   @IsOptional()
   @IsBoolean()
   isVisibility?: boolean;
