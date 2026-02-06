@@ -5,5 +5,4 @@
     mehdi@gmail.com
     mhd123456
 
-Error: Entity-de password-de select: false oldugu ucun, login olanda 500:Internal server error verir
 

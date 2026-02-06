@@ -1,13 +1,21 @@
-import { Body, Controller, Delete, Get, Param, Patch, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Query, Req, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { UpdateUserDto } from "./dtos/updateUser.dto";
 import { Serialize } from "src/interceptor/serialize.interceptor";
 import { UserDto } from "./dtos/user.dto";
+import { AuthGuard } from "src/guards/auth.guard";
+import { ApiBearerAuth } from "@nestjs/swagger";
 
+@ApiBearerAuth()
 @Controller('users')
 @Serialize(UserDto)
 export class UserController {
     constructor(public userService: UserService) { }
+
+    @Get('/all')
+    findAllUsers() {
+        return this.userService.findAll()
+    }
 
     @Get('/')
     findUserByEmail(@Query('email') email: string) {
@@ -19,13 +27,15 @@ export class UserController {
         return this.userService.findOne(parseInt(id))
     }
 
-    @Patch('/:id')
-    updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
-        return this.userService.update(parseInt(id), body)
+    @UseGuards(AuthGuard)
+    @Patch('/')
+    updateUser(@Req() req: any, @Body() body: UpdateUserDto) {
+        return this.userService.update(req.user.id, body)
     }
 
+    @UseGuards(AuthGuard)
     @Delete('/:id')
-    removeUser(@Param('id') id: string) {
-        return this.userService.remove(parseInt(id))
+    removeUser(@Req() req: any) {
+        return this.userService.remove(req.user.id)
     }
 }

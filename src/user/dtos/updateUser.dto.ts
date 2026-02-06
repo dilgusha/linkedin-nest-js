@@ -20,6 +20,10 @@ export class UpdateUserDto {
 
     @IsOptional()
     @IsString()
+    username?: string;
+
+    @IsOptional()
+    @IsString()
     about?: string;
 
     @IsOptional()

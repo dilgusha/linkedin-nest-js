@@ -19,6 +19,10 @@ export class UserService {
         return this.repo.save(user)
     }
 
+    async findAll() {
+        return this.repo.find()
+    }
+
     async findOne(id: number) {
         const user = await this.repo.findOneBy({ id })
         if (!user) throw new NotFoundException('User by this id not found')
@@ -34,29 +38,14 @@ export class UserService {
     async findByEmail(email: string) {
         return this.repo.findOne({
             where: { email },
-            select: ['id', 'email', 'username', 'password', 'name', 'surname', 'gender', 'role', 'about', 'companyname', 'birthday', 'phone', 'isVisibility']
         })
     }
-    // async findByEmail(email: string) {
-    //     return this.repo.createQueryBuilder('user')
-    //         .where('user.email = :email', { email })
-    //         .addSelect('user.password')
-    //         .getOne()
-    // }
 
     async findByUsername(username: string) {
         return this.repo.findOne({
             where: { username },
-            select: ['id', 'email', 'username', 'password', 'name', 'surname', 'gender', 'role', 'about', 'companyname', 'birthday', 'phone', 'isVisibility']
         })
     }
-
-    // async findByUsername(username: string) {
-    //     return this.repo.createQueryBuilder('user')
-    //         .where('user.username = :username', { username })
-    //         .addSelect('user.password')
-    //         .getOne()
-    // }
 
     async update(id: number, attrs: UpdateUserDto) {
         const user = await this.findOrFail(id)
@@ -64,13 +53,14 @@ export class UserService {
             const value = attrs[key]
             if (value !== undefined && value !== null) user[key] = value
         }
-        return this.repo.save(user)
+        await this.repo.save(user)
+        return user
     }
 
     async remove(id: number) {
         const user = await this.findOrFail(id)
         await this.repo.remove(user)
-        return user
+        return true
     }
 }
 

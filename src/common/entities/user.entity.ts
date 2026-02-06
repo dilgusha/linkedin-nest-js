@@ -16,7 +16,7 @@ export class User extends CommonEntity {
     @Column({ type: "varchar", length: 150 })
     email: string
 
-    @Column({ type: "varchar", length: 150, select: false })
+    @Column({ type: "varchar", length: 150 })
     password: string
 
     @Column({ type: "varchar", enum: Gender, default: null })

@@ -2,7 +2,7 @@
 GET http://localhost:3014/users
 
 ### Get User with an ID
-GET http://localhost:3014/users/5
+GET http://localhost:3014/users/6
 
 ### Remove User with an ID
 DELETE http://localhost:3014/users/5
@@ -12,5 +12,5 @@ PATCH http://localhost:3014/users/6
 Content-Type: application/json
 
 {
-    "name": "Agasalim"
+    "username": "Aga"
 }
