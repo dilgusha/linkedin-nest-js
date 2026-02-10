@@ -81,6 +81,13 @@ Layihədə istifadəçi qeydiyyatı, login və qorunan (protected) route-lar mö
   - User delete
   - Route-lar `@UseGuards(AuthGuard)` ilə qorunur
 
+## 👤 Education
+  - Education create
+  - Education update
+  - Education delete
+  - Education getById
+  - Get all educations
+
 ## SerializeInterceptor
   - Entity-dən gələn lazımsız field-ləri (məs: password) response-dan çıxarır
   - Response-u daha təhlükəsiz edir

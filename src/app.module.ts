@@ -7,12 +7,15 @@ import { PostModule } from './post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './common/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { EducationModule } from './education/education.module';
+import { Education } from './common/entities/education.entity';
 
 @Module({
   imports: [
     UserModule,
     AuthModule,
     PostModule,
+    EducationModule,
     JwtModule.register({
       global: true,
       secret: 'jwsConstants.secret',
@@ -21,7 +24,7 @@ import { JwtModule } from '@nestjs/jwt';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: [User],
+      entities: [User, Education],
       synchronize: true
     })],
   controllers: [AppController],
