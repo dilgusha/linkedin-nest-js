@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { EducationEntity } from "./education.entity";
+import { CreateEduType } from "./dto/create-education.dto";
 
 @Injectable()
 export class EducationService {
@@ -13,7 +14,7 @@ export class EducationService {
         return this.eduRepo.find();
     }
 
-    async create(data: Partial<EducationEntity>) {
+    async create(data: CreateEduType) {
         const edu = this.eduRepo.create(data);
         return this.eduRepo.save(edu);
     }
@@ -22,15 +23,17 @@ export class EducationService {
         return this.eduRepo.findOneBy({ id });
     }
 
-    // async update(id: number, data: Partial<EducationEntity>) {
-    //     const edu = await this.findOne(id);
-    //     Object.assign(edu, data);
-    //     return this.eduRepo.save(edu);
-    // }
+    async update(id: number, data: Partial<EducationEntity>) {
+        const edu = await this.findOne(id);
+        if (!edu) throw new Error('Education not found')
+        Object.assign(edu, data);
+        return this.eduRepo.save(edu);
+    }
 
-    // async delete(id: number) {
-    //     const edu = await this.findOne(id);
-    //     return this.eduRepo.remove(edu);
-    // }
+    async delete(id: number) {
+        const edu = await this.findOne(id);
+        if (!edu) throw new Error('Education not found')
+        return this.eduRepo.remove(edu);
+    }
 
 }

@@ -12,6 +12,7 @@ import { AuthGuard } from "src/guards/auth.guard";
 @ApiBearerAuth()
 @Controller('user')
 @ApiTags('user')
+@UseGuards(AuthGuard)
 export class UserController {
     constructor(public userService: UserService) { }
 
@@ -45,10 +46,11 @@ export class UserController {
     }
 
 
-    @UseGuards(AuthGuard)
+    @Serialize(UserDto)
+    // @UseGuards(AuthGuard)
     @Patch('/update')
     async update( @Body() dto: UpdateUserDto, @Req() req:any) {
-        return this.userService.update(parseInt(req.user.id), dto);
+        return this.userService.update(req.user.id, dto);
     }
 
 }

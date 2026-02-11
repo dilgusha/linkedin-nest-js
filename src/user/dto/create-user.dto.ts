@@ -14,7 +14,7 @@ import {
 import { EGenderType, ERoleType } from "src/common/enum";
 
 export class CreateUserDto {
-  @ApiProperty({example:'Dilgusha'})
+  @ApiProperty({example:'Dilgusha' })
   @IsString()
   @MaxLength(150)
   name: string;

@@ -1,6 +1,5 @@
 import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 import { CommonEntity } from "src/common/Common.entity";
-import { UserEntity } from "src/user/User.entity";
 import { EDegreeType } from "src/common/enum";
 
 @Entity({ name: "educations" })
@@ -12,8 +11,6 @@ export class EducationEntity extends CommonEntity {
     type: "enum",
     enum: EDegreeType,
     default: EDegreeType.OTHER,
-
-    
   })
   degree: EDegreeType;
 
@@ -24,7 +21,7 @@ export class EducationEntity extends CommonEntity {
   startDate: Date;
 
   @Column({type: "datetime", nullable: true })
-  endDate: Date;
+  endDate: Date; 
 
   @Column({ type: "varchar", default: null  })
   imageUrl?: string;

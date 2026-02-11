@@ -42,7 +42,7 @@ export class UserEntity extends CommonEntity {
   @Column({ type: "datetime", default:null })
   birthdate: Date;
 
-  @Column({ type: "varchar", length: 13, default: null })
+  @Column({ type: "varchar", length: 13, default: null, unique:true })
   phone: string;
 
   @Column({ type: "boolean", default: false })
