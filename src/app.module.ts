@@ -9,6 +9,8 @@ import { User } from './common/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { EducationModule } from './education/education.module';
 import { Education } from './common/entities/education.entity';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CurrentUserInterceptor } from './interceptor/current-user.interceptor';
 
 @Module({
   imports: [
@@ -28,6 +30,12 @@ import { Education } from './common/entities/education.entity';
       synchronize: true
     })],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CurrentUserInterceptor
+    }
+  ],
 })
 export class AppModule { }

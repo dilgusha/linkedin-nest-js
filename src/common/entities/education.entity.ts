@@ -1,6 +1,7 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { EDegree } from "../enam";
 import { CommonEntity } from "./common.entity";
+import { User } from "./user.entity";
 
 @Entity({ name: 'education' })
 export class Education extends CommonEntity {
@@ -21,4 +22,11 @@ export class Education extends CommonEntity {
 
     @Column({ type: 'text', nullable: true })
     imageUrl: string
+
+    @ManyToOne(() => User, (user) => user.education, {
+        onDelete: 'CASCADE'
+    })
+
+    @JoinColumn({ name: 'userId' })
+    user: User
 }

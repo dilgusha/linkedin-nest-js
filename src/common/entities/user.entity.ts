@@ -1,6 +1,7 @@
-import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { CommonEntity } from "./common.entity";
 import { Gender, Role } from "../enam";
+import { Education } from "./education.entity";
 
 @Entity()
 export class User extends CommonEntity {
@@ -39,6 +40,9 @@ export class User extends CommonEntity {
 
     @Column({ type: "boolean", default: false })
     isVisibility: boolean
+
+    @OneToMany(() => Education, (education) => education.user)
+    education: Education[];
 
     @AfterInsert()
     logInsert() {

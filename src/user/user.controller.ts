@@ -34,7 +34,7 @@ export class UserController {
     }
 
     @UseGuards(AuthGuard)
-    @Delete('/:id')
+    @Delete('/')
     removeUser(@Req() req: any) {
         return this.userService.remove(req.user.id)
     }

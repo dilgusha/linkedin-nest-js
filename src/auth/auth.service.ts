@@ -26,7 +26,7 @@ export class AuthService {
             password: passwordHashed,
             ...rest
         })
-        const access_token = await this.jwtService.signAsync({ userId: user.id })
+        const access_token = await this.jwtService.signAsync({ id: user.id })
         return { user, access_token }
     }
 
@@ -40,7 +40,7 @@ export class AuthService {
         const [salt, storedHash] = user.password.split('.')
         const hash = (await scrypt(password, salt, 32)) as Buffer
         if (hash.toString('hex') !== storedHash) throw new BadRequestException('Password is wrong')
-        const access_token = await this.jwtService.signAsync({ userId: user.id })
+        const access_token = await this.jwtService.signAsync({ id: user.id })
         return { user, access_token }
     }
 }

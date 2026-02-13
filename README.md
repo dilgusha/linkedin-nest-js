@@ -63,10 +63,12 @@ Layihədə istifadəçi qeydiyyatı, login və qorunan (protected) route-lar mö
 ## 🔐 Authentication Axını
   1. User **register** olur
   2. User **login** edir
-  3. Server **JWT token** qaytarır
-  4. Token `Authorization` header ilə göndərilir
-  5. `AuthGuard` token-i yoxlayır
-  6. Token keçərlidirsə → request icazə verilir
+  3. Server **JWT token ve User** qaytarır
+  4. `session.userId` = user.id olaraq set edilir
+  5. `CurrentUser` - session.userId goturur
+  6. Token `Authorization` header ilə göndərilir
+  7. `AuthGuard` token-i yoxlayır
+  8. Token keçərlidirsə → request icazə verilir
 
 ## 🛡 AuthGuard
   `auth.guard.ts` faylında:
@@ -76,10 +78,11 @@ Layihədə istifadəçi qeydiyyatı, login və qorunan (protected) route-lar mö
   - Token yanlışdırsa → `UnauthorizedException`
 
 ## 👤 User Controller
-  `user.controller.ts`:
+* `user.controller.ts`:
   - User update
   - User delete
   - Route-lar `@UseGuards(AuthGuard)` ilə qorunur
+  - Route-larda userId `CurrentUser`-dan goturur
 
 ## 👤 Education
   - Education create
@@ -87,10 +90,20 @@ Layihədə istifadəçi qeydiyyatı, login və qorunan (protected) route-lar mö
   - Education delete
   - Education getById
   - Get all educations
+  - Route-lar `@UseGuards(AuthGuard)` ilə qorunur
+  - Route-larda userId `CurrentUser`-dan goturur
 
 ## SerializeInterceptor
   - Entity-dən gələn lazımsız field-ləri (məs: password) response-dan çıxarır
   - Response-u daha təhlükəsiz edir
+
+## CurrentUser Decorator & Interceptor
+* `current-user.interceptor.ts`
+  - userId session-dan goturulur
+  - userId-ye gore userService ile user tapilir
+  - user Request-e oturulur
+* `current-user.decorator.ts`
+  - user CurrentUser-dan goturulur
 
 * ⚙️ Proyekti İşə Salmaq
   - npm install

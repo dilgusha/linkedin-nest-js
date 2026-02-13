@@ -48,7 +48,7 @@ export class UserService {
     }
 
     async update(id: number, attrs: UpdateUserDto) {
-        const user = await this.findOrFail(id)
+        const user = await this.findOne(id)
         for (const key in attrs) {
             const value = attrs[key]
             if (value !== undefined && value !== null) user[key] = value
@@ -58,7 +58,7 @@ export class UserService {
     }
 
     async remove(id: number) {
-        const user = await this.findOrFail(id)
+        const user = await this.findOne(id)
         await this.repo.remove(user)
         return true
     }
