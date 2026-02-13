@@ -1,6 +1,7 @@
 import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 import { CommonEntity } from "src/common/Common.entity";
 import { EDegreeType } from "src/common/enum";
+import { UserEntity } from "src/user/User.entity";
 
 @Entity({ name: "educations" })
 export class EducationEntity extends CommonEntity {
@@ -8,8 +9,7 @@ export class EducationEntity extends CommonEntity {
   schoolName: string;
 
   @Column({
-    type: "enum",
-    enum: EDegreeType,
+    type: "text",
     default: EDegreeType.OTHER,
   })
   degree: EDegreeType;
@@ -25,4 +25,10 @@ export class EducationEntity extends CommonEntity {
 
   @Column({ type: "varchar", default: null  })
   imageUrl?: string;
+
+  @ManyToOne(() => UserEntity, (user) => user.educations, {
+    onDelete: "CASCADE",
+  })
+  @JoinColumn({ name: "userId" })
+  user: UserEntity;
 }

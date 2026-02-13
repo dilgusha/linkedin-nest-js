@@ -1,13 +1,15 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsEnum, IsOptional, IsString } from "class-validator";
+import { Type } from "class-transformer";
+import { IsDate, IsDateString, IsEnum, IsOptional, IsString } from "class-validator";
 import { EDegreeType } from "src/common/enum";
 
 export class CreateEduDto {
-    @ApiProperty()
+    @ApiProperty({example:'company name '})
+    // @ApiProperty()
     @IsString()
     schoolName: string;
 
-    @ApiProperty()
+    @ApiProperty({ enum: EDegreeType })
     @IsEnum(EDegreeType)
     degree: EDegreeType;
 
@@ -15,12 +17,14 @@ export class CreateEduDto {
     @IsString()
     faculty: string;
 
+    @Type(() => Date)
     @ApiProperty()
     @IsDate()
     startDate: Date;
 
+    // @Type(() => Date)
     @ApiProperty()
-    @IsDate()
+    @IsDateString()
     endDate: Date;
 
     @ApiProperty()
@@ -30,7 +34,7 @@ export class CreateEduDto {
 }
 
 
-export class CreateEduType{
+export class CreateEduType {
     schoolName: string;
     degree: EDegreeType;
     faculty: string;
