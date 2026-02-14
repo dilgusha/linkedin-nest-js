@@ -1,4 +1,4 @@
-# NestJS Auth & User API
+# NestJS Linkedin_cover API
 
 Bu layihə **NestJS**, **TypeORM** və **JWT Authentication** istifadə edilərək yazılmış sadə backend API-dir.  
 Layihədə istifadəçi qeydiyyatı, login və qorunan (protected) route-lar mövcuddur.
@@ -84,12 +84,21 @@ Layihədə istifadəçi qeydiyyatı, login və qorunan (protected) route-lar mö
   - Route-lar `@UseGuards(AuthGuard)` ilə qorunur
   - Route-larda userId `CurrentUser`-dan goturur
 
-## 👤 Education
+## Education
   - Education create
   - Education update
   - Education delete
   - Education getById
   - Get all educations
+  - Route-lar `@UseGuards(AuthGuard)` ilə qorunur
+  - Route-larda userId `CurrentUser`-dan goturur
+
+## Experience
+  - Experience create
+  - Experience update
+  - Experience delete
+  - Experience getById
+  - Get all experiences
   - Route-lar `@UseGuards(AuthGuard)` ilə qorunur
   - Route-larda userId `CurrentUser`-dan goturur
 

@@ -11,6 +11,8 @@ import { EducationModule } from './education/education.module';
 import { Education } from './common/entities/education.entity';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CurrentUserInterceptor } from './interceptor/current-user.interceptor';
+import { ExperienceModule } from './experience/experience.module';
+import { Experience } from './common/entities/experience.entity';
 
 @Module({
   imports: [
@@ -18,6 +20,7 @@ import { CurrentUserInterceptor } from './interceptor/current-user.interceptor';
     AuthModule,
     PostModule,
     EducationModule,
+    ExperienceModule,
     JwtModule.register({
       global: true,
       secret: 'jwsConstants.secret',
@@ -26,7 +29,7 @@ import { CurrentUserInterceptor } from './interceptor/current-user.interceptor';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite',
-      entities: [User, Education],
+      entities: [User, Education, Experience],
       synchronize: true
     })],
   controllers: [AppController],
