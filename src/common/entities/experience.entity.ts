@@ -13,7 +13,10 @@ export class Experience extends CommonEntity {
     startDate: Date
 
     @Column({ type: 'datetime', nullable: true })
-    endDate: Date
+    endDate: Date | null
+
+    @Column({ default: false })
+    currentWorking: boolean
 
     @Column({ type: 'text', nullable: true })
     description: string

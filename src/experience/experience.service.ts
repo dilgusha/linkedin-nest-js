@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Experience } from 'src/common/entities/experience.entity';
 import { Repository } from 'typeorm';
@@ -15,7 +15,12 @@ export class ExperienceService {
     async create(data: ExperienceType, userId: number) {
         const user = await this.userService.findOne(userId)
         if (!user) throw new NotFoundException('User not found')
-        const experience = this.repo.create(data)
+        if (data.currentWorking && data.endDate) throw new BadRequestException('If currentWorking is true, endDate must be null')
+        if (!data.currentWorking && !data.endDate) throw new BadRequestException('If currentWorking is false, endDate is required')
+        const experience = this.repo.create({
+            ...data,
+            currentWorking: data.endDate === null
+        })
         return this.repo.save(experience)
     }
 

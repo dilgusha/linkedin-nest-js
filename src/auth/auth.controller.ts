@@ -24,9 +24,9 @@ export class AuthController {
         return { user, access_token }
     }
 
-    @Post('/logout')
-    async logout(@Session() sesion: SessionData) {
-        sesion.userId = null
-        return { message: 'Logged out' }
-    }
+    // @Post('/logout')
+    // async logout(@Session() sesion: SessionData) {
+    //     sesion.userId = null
+    //     return { message: 'Logged out' }
+    // }
 }

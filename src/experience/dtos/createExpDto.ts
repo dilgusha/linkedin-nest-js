@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsDateString, IsOptional, IsString, ValidateIf } from "class-validator";
 
 export class CreateExpDto {
     @ApiProperty()
@@ -14,9 +14,15 @@ export class CreateExpDto {
     @IsDateString()
     startDate: Date
 
-    @ApiProperty()
+    @ApiProperty({ type: String, format: 'date-time', nullable: true, default: null })
+    @ValidateIf(d => d.currentWorking === false)
     @IsDateString()
-    endDate: Date
+    @IsOptional()
+    endDate?: Date | null
+
+    @ApiProperty()
+    @IsBoolean()
+    currentWorking: boolean
 
     @ApiProperty()
     @IsString()

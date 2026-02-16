@@ -6,8 +6,8 @@
     mhd123456
 
 <!-- Todo -->
- - Logout yalnisdi
-
+    - Logout yalnisdi
+    - EndDate Enum olmalidir(Currently working || EndDate)
 
 # Errors
 

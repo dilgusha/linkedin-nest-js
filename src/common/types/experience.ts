@@ -2,7 +2,8 @@ export interface ExperienceType {
     company: string
     location: string
     startDate: Date
-    endDate: Date
+    endDate?: Date | null
+    currentWorking: boolean
     description: string
 }
 
