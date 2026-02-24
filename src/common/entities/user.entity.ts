@@ -2,6 +2,7 @@ import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, OneToMany, Prima
 import { CommonEntity } from "./common.entity";
 import { Gender, Role } from "../enam";
 import { Education } from "./education.entity";
+import { Experience } from "./experience.entity";
 
 @Entity()
 export class User extends CommonEntity {
@@ -42,20 +43,8 @@ export class User extends CommonEntity {
     isVisibility: boolean
 
     @OneToMany(() => Education, (education) => education.user)
-    education: Education[];
+    educations: Education[];
 
-    @AfterInsert()
-    logInsert() {
-        console.log('User inserted')
-    }
-
-    @AfterRemove()
-    logRemove() {
-        console.log('User removed')
-    }
-
-    @AfterUpdate()
-    logUpdate() {
-        console.log('User updated')
-    }
+    @OneToMany(() => Experience, (experience) => experience.user)
+    experiences: Experience[]
 }

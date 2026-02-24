@@ -1,5 +1,6 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { CommonEntity } from "./common.entity";
+import { User } from "./user.entity";
 
 @Entity({ name: 'Experience' })
 export class Experience extends CommonEntity {
@@ -20,4 +21,8 @@ export class Experience extends CommonEntity {
 
     @Column({ type: 'text', nullable: true })
     description: string
+
+    @ManyToOne(() => User, (user) => user.experiences, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'userId' })
+    user: User
 }

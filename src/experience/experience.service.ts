@@ -19,7 +19,8 @@ export class ExperienceService {
         if (!data.currentWorking && !data.endDate) throw new BadRequestException('If currentWorking is false, endDate is required')
         const experience = this.repo.create({
             ...data,
-            currentWorking: data.endDate === null
+            currentWorking: data.endDate === null,
+            user
         })
         return this.repo.save(experience)
     }
@@ -27,7 +28,7 @@ export class ExperienceService {
     async getExperiences(userId: number) {
         const user = await this.userService.findOne(userId)
         if (!user) throw new NotFoundException('User not found')
-        const experiences = await this.repo.find()
+        const experiences = await this.repo.find({ where: { user: { id: user.id } } })
         if (experiences.length === 0) throw new NotFoundException('No Experience exists')
         return experiences
     }
@@ -35,7 +36,7 @@ export class ExperienceService {
     async findExperience(id: number, userId: number) {
         const user = await this.userService.findOne(userId)
         if (!user) throw new NotFoundException('User not found')
-        const experience = await this.repo.findOne({ where: { id } })
+        const experience = await this.repo.findOne({ where: { id, user: { id: user.id } } })
         if (!experience) throw new NotFoundException('Experience not found')
         return experience
     }
@@ -43,15 +44,17 @@ export class ExperienceService {
     async update(id: number, userId: number, data: UpdateExpType) {
         const user = await this.userService.findOne(userId)
         if (!user) throw new NotFoundException('User not found')
-        const result = await this.repo.update(id, { ...data, updatedAt: new Date() })
+        const exist = await this.repo.findOne({ where: { id, user: { id: user.id } } })
+        if (!exist) throw new NotFoundException('Experience not found')
+        const result = await this.repo.update(exist.id, { ...data, updatedAt: new Date() })
         if (!result.affected) throw new NotFoundException('Experience not found')
-        return await this.repo.findOne({ where: { id } })
+        return await this.repo.findOne({ where: { id, user: { id: user.id } } })
     }
 
     async delete(id: number, userId: number) {
         const user = await this.userService.findOne(userId)
         if (!user) throw new NotFoundException('User not found')
-        const experience = await this.repo.findOne({ where: { id } })
+        const experience = await this.repo.findOne({ where: { id, user: { id: user.id } } })
         if (!experience) throw new NotFoundException('Experience not found')
         await this.repo.remove(experience)
         return { message: 'The Experience has beed removed' }

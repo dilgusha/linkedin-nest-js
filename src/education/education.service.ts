@@ -12,8 +12,9 @@ export class EduService {
         private userService: UserService
     ) { }
 
-    async create(data: EducationType, id: number) {
-        const user = await this.userService.findOne(id)
+    async create(data: EducationType, userId: number) {
+        const user = await this.userService.findOne(userId)
+        if (!user) throw new NotFoundException('User not found')
         const education = this.repo.create({ ...data, user })
         return await this.repo.save(education)
     }
@@ -31,10 +32,11 @@ export class EduService {
     }
 
     async updateEdu(id: number, data: UpdateEduType, userId: number) {
-        const result = await this.repo.update(
-            { id, user: { id: userId } },
-            { id, ...data, updatedAt: new Date() }
-        )
+        const user = await this.userService.findOne(userId)
+        if (!user) throw new NotFoundException('User not found')
+        const exist = await this.repo.findOne({ where: { id, user: { id: user.id } } })
+        if (!exist) throw new NotFoundException('Education not found')
+        const result = await this.repo.update(exist.id, { ...data, updatedAt: new Date() })
         if (result.affected === 0) throw new NotFoundException('Education not found')
         return await this.repo.findOne({ where: { id, user: { id: userId } } })
     }

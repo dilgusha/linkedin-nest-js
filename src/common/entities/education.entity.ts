@@ -23,10 +23,7 @@ export class Education extends CommonEntity {
     @Column({ type: 'text', nullable: true })
     imageUrl: string
 
-    @ManyToOne(() => User, (user) => user.education, {
-        onDelete: 'CASCADE'
-    })
-
+    @ManyToOne(() => User, (user) => user.educations, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'userId' })
     user: User
 }
