@@ -12,6 +12,7 @@ Layihədə istifadəçi qeydiyyatı, login və qorunan (protected) route-lar mö
 - class-validator / class-transformer
 
 ## 📂 Proyekt Strukturu
+```
 ├── 📁 src
 │   ├── 📁 auth
 │   │   ├── 📁 dtos
@@ -23,12 +24,38 @@ Layihədə istifadəçi qeydiyyatı, login və qorunan (protected) route-lar mö
 │   ├── 📁 common
 │   │   ├── 📁 entities
 │   │   │   ├── 📄 common.entity.ts
+│   │   │   ├── 📄 education.entity.ts
+│   │   │   ├── 📄 experience.entity.ts
 │   │   │   └── 📄 user.entity.ts
 │   │   ├── 📁 types
+│   │   │   ├── 📄 education.ts
+│   │   │   ├── 📄 experience.ts
+│   │   │   └── 📄 session.type.ts
 │   │   └── 📄 enam.ts
+│   ├── 📁 decorators
+│   │   └── 📄 current-user.decorator.ts
+│   ├── 📁 education
+│   │   ├── 📁 dtos
+│   │   │   ├── 📄 createEduDto.ts
+│   │   │   └── 📄 updateEduDto.ts
+│   │   ├── 📄 education.controller.spec.ts
+│   │   ├── 📄 education.controller.ts
+│   │   ├── 📄 education.module.ts
+│   │   ├── 📄 education.service.spec.ts
+│   │   └── 📄 education.service.ts
+│   ├── 📁 experience
+│   │   ├── 📁 dtos
+│   │   │   ├── 📄 createExpDto.ts
+│   │   │   └── 📄 updateExpDto.ts
+│   │   ├── 📄 experience.controller.spec.ts
+│   │   ├── 📄 experience.controller.ts
+│   │   ├── 📄 experience.module.ts
+│   │   ├── 📄 experience.service.spec.ts
+│   │   └── 📄 experience.service.ts
 │   ├── 📁 guards
 │   │   └── 📄 auth.guard.ts
 │   ├── 📁 interceptor
+│   │   ├── 📄 current-user.interceptor.ts
 │   │   └── 📄 serialize.interceptor.ts
 │   ├── 📁 post
 │   │   ├── 📁 dtos
@@ -59,6 +86,7 @@ Layihədə istifadəçi qeydiyyatı, login və qorunan (protected) route-lar mö
 ├── ⚙️ package-lock.json
 ├── ⚙️ package.json
 └── ⚙️ tsconfig.json
+```
 
 ## 🔐 Authentication Axını
   1. User **register** olur
@@ -101,6 +129,11 @@ Layihədə istifadəçi qeydiyyatı, login və qorunan (protected) route-lar mö
   - Get all experiences
   - Route-lar `@UseGuards(AuthGuard)` ilə qorunur
   - Route-larda userId `CurrentUser`-dan goturur
+
+## Relations
+  - User: OneToMany
+  - Education: ManyToOne
+  - Experience: ManyToOne
 
 ## SerializeInterceptor
   - Entity-dən gələn lazımsız field-ləri (məs: password) response-dan çıxarır
